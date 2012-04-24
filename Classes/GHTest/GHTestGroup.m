@@ -177,12 +177,15 @@ status=status_, testCase=testCase_, exception=exception_, options=options_;
   if (status_ == GHTestStatusRunning) {
     status_ = GHTestStatusCancelling;
   } else {
-    for(id<GHTest> test in children_) {
-      stats_.cancelCount++;
-      [test cancel];
-    }
     status_ = GHTestStatusCancelled;
   }
+   
+  for(id<GHTest> test in children_) {
+    stats_.cancelCount++;
+      if (!GHTestStatusEnded([test status]))
+        [test cancel];
+  }
+    
   [delegate_ testDidUpdate:self source:self];
 }
 

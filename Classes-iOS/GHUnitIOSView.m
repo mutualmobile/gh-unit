@@ -31,7 +31,7 @@
 
 @implementation GHUnitIOSView
 
-@synthesize statusLabel=statusLabel_, filterControl=filterControl_, searchBar=searchBar_, tableView=tableView_;
+@synthesize statusLabel=statusLabel_, filterControl=filterControl_, searchBar=searchBar_, tableView=tableView_, spinner=spinner_;
 
 - (id)initWithFrame:(CGRect)frame {
   if ((self = [super initWithFrame:frame])) {
@@ -50,7 +50,7 @@
     [self addSubview:tableView_];
     [tableView_ release]; 
     
-    footerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
+    footerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 36)];
     footerView_.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     
     // Status label
@@ -62,7 +62,17 @@
     statusLabel_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [footerView_ addSubview:statusLabel_];
     [statusLabel_ release];
-    
+      
+      // Spinner
+      spinner_ = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(footerView_.frame.size.width - 40.0f, 0.0f, 36.0f, 36.0f)];
+      
+      if (NSProtocolFromString(@"UIAppearance")) {
+          [spinner_ setColor:[UIColor blackColor]];
+      }
+      
+      [footerView_ addSubview:spinner_];
+      [spinner_ release];
+      
     [self addSubview:footerView_];
     [footerView_ release];
     

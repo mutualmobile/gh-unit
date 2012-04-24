@@ -46,12 +46,15 @@
   UIToolbar *runToolbar_;  
   
   UIView *footerView_;
+    
+  UIActivityIndicatorView *spinner_;
 }
 
 @property (readonly, nonatomic) UILabel *statusLabel;
 @property (readonly, nonatomic) UISegmentedControl *filterControl;
 @property (readonly, nonatomic) UISearchBar *searchBar;
 @property (readonly, nonatomic) UITableView *tableView;
+@property (readonly, nonatomic) UIActivityIndicatorView *spinner;
 
 
 @end

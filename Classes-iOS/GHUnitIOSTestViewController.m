@@ -83,7 +83,7 @@
   NSMutableString *text = [NSMutableString stringWithCapacity:200];
   [text appendFormat:@"%@ %@\n", [testNode_ identifier], [testNode_ statusString]];
   NSString *log = [testNode_ log];
-  if (log) [text appendFormat:@"\nLog:\n%@\n", log];
+  if (log) [text appendFormat:@"\n\tLog: %@\n", log];
   NSString *stackTrace = [testNode_ stackTrace];
   if (stackTrace) [text appendFormat:@"\n%@\n", stackTrace];
   if ([testNode_.test.exception.name isEqualToString:@"GHViewChangeException"]) {

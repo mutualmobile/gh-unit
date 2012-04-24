@@ -130,12 +130,11 @@ static GHTesting *gSharedInstance;
   NSString *filename = [[[[exception userInfo] objectForKey:GHTestFilenameKey] stringByStandardizingPath] stringByAbbreviatingWithTildeInPath];
   NSString *filenameDescription = (filename ? filename : @"Unknown");
   
-  return [NSString stringWithFormat:@"\n\tName: %@\n\tFile: %@\n\tLine: %@\n\tReason: %@\n\n%@", 
+  return [NSString stringWithFormat:@"\tName: %@\n\tFile: %@\n\tLine: %@\n\tReason: %@", 
           [exception name],
           filenameDescription, 
           lineDescription, 
-          [exception reason], 
-          GHU_GTMStackTraceFromException(exception)];
+          [exception reason]];
 }  
 
 + (NSString *)exceptionFilenameForTest:(id<GHTest>)test {

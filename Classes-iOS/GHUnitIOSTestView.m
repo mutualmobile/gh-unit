@@ -47,7 +47,7 @@
 
     savedImageView_ = [[YKUIImageViewControl alloc] initWithFrame:CGRectMake(10, 10, 145, 100)];
     [savedImageView_ addTarget:self action:@selector(_selectSavedImage) forControlEvents:UIControlEventTouchUpInside];
-    [savedImageView_.layer setBorderWidth:2.0];
+    [savedImageView_.layer setBorderWidth:2.0f];
     [savedImageView_.layer setBorderColor:[UIColor blackColor].CGColor];
     savedImageView_.hidden = YES;
     [self addSubview:savedImageView_];
@@ -55,7 +55,7 @@
 
     renderedImageView_ = [[YKUIImageViewControl alloc] initWithFrame:CGRectMake(165, 10, 145, 100)];
     [renderedImageView_ addTarget:self action:@selector(_selectRenderedImage) forControlEvents:UIControlEventTouchUpInside];
-    [renderedImageView_.layer setBorderWidth:2.0];
+    [renderedImageView_.layer setBorderWidth:2.0f];
     [renderedImageView_.layer setBorderColor:[UIColor blackColor].CGColor];
     renderedImageView_.hidden = YES;
     [self addSubview:renderedImageView_];

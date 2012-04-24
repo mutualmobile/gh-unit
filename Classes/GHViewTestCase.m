@@ -183,7 +183,7 @@ typedef struct {
   // Draw the original image
   [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
   // Overlay the new image inverted and at half alpha
-  CGContextSetAlpha(context, 0.5);
+  CGContextSetAlpha(context, 0.5f);
   CGContextBeginTransparencyLayer(context, NULL);
   [renderedImage drawInRect:CGRectMake(0, 0, renderedImage.size.width, renderedImage.size.height)];
   CGContextSetBlendMode(context, kCGBlendModeDifference);

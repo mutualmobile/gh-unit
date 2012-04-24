@@ -1,3 +1,10 @@
+# Conrad's Changes 0.4.30
+- Removed Stack Trace from view and log
+- Changed Cancel function to cancel immediately, not when group finishes
+- Added cancelling spinner to iOS view
+- Changed formatting of log displays
+- Fixed warnings and project configuration issues
+
 # Release 0.4.29
 - Changing paths to use iOS instead of iPhone
 - Rebuilding iOS project using XCode 4

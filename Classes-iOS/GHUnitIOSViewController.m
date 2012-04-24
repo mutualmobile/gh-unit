@@ -37,6 +37,7 @@ NSString *const GHUnitFilterKey = @"Filter";
 - (void)_setTextFilter:(NSString *)textFilter;
 - (void)_setFilterIndex:(NSInteger)index;
 - (NSInteger)_filterIndex;
+- (void)setSpinnerActive:(BOOL)active;
 @end
 
 @implementation GHUnitIOSViewController
@@ -79,7 +80,7 @@ NSString *const GHUnitFilterKey = @"Filter";
   view_.searchBar.delegate = nil;
   [view_ release];
   
-  view_ = [[GHUnitIOSView alloc] initWithFrame:CGRectMake(0, 0, 320, 344)];
+  view_ = [[GHUnitIOSView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 344)];
   view_.searchBar.delegate = self;
   NSString *textFilter = [self _textFilter];
   if (textFilter) view_.searchBar.text = textFilter;  
@@ -126,6 +127,7 @@ NSString *const GHUnitFilterKey = @"Filter";
 - (void)cancel {
   view_.statusLabel.text = @"Cancelling...";
   [dataSource_ cancel];
+    [self setSpinnerActive:YES];
 }
 
 - (void)_exit {
@@ -187,6 +189,13 @@ NSString *const GHUnitFilterKey = @"Filter";
 
 - (void)setStatusText:(NSString *)message {
   view_.statusLabel.text = message;
+}
+
+- (void)setSpinnerActive:(BOOL)active {
+    if (active)
+        [[(GHUnitIOSView*)self.view spinner] startAnimating];
+    else
+        [[(GHUnitIOSView*)self.view spinner] stopAnimating];
 }
 
 #pragma mark Delegates (UITableView)
@@ -265,7 +274,8 @@ NSString *const GHUnitFilterKey = @"Filter";
 
 - (void)testRunnerDidCancel:(GHTestRunner *)runner { 
   [self _setRunning:NO runner:runner];
-  [self setStatusText:@"Cancelled..."];
+  [self setStatusText:@"Cancelled."];
+    [self setSpinnerActive:NO];
 }
 
 - (void)testRunnerDidEnd:(GHTestRunner *)runner {

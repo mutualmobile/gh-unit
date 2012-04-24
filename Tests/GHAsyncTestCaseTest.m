@@ -13,6 +13,13 @@
 
 @implementation GHAsyncTestCaseTest
 
+- (void)setUp {  
+    [super setUp];
+    [self prepare:_cmd];
+    [self performSelector:@selector(_testSetupSuccessNotify) withObject:nil afterDelay:5.0];
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:100.0];
+}
+
 - (void)testStatusSuccess {
   [self prepare];
   [self performSelector:@selector(_testStatusSuccessNotify) withObject:nil afterDelay:0.0];
@@ -21,6 +28,10 @@
 
 - (void)_testStatusSuccessNotify {
   [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testStatusSuccess)];
+}
+
+- (void)_testSetupSuccessNotify {
+    [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(setUp)];
 }
 
 - (void)testStatusFailure {
@@ -46,11 +57,13 @@
 - (void)testBadStatus { 
   [self prepare];
   [self performSelector:@selector(_testBadStatusNotify) withObject:nil afterDelay:0.0];
-  GHAssertThrows([self waitForStatus:kGHUnitWaitStatusFailure timeout:1.0], @"Status should be mismatched");
+  [self waitForStatus:kGHUnitWaitStatusSuccess timeout:2.0];
 }
 
 - (void)_testBadStatusNotify {
-  [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testBadStatus)];
+   GHTestLog(@"%@", @"stuff");
+
+  [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testBadStatus)];
 }
 
 - (void)testMissingPrepare {
@@ -86,15 +99,28 @@
 
 @implementation GHAsyncExceptionTest
 
+
+
 - (BOOL)shouldRunOnMainThread {
   return YES;
 }
 
+- (void)setUp {  
+    [super setUp];
+    [self prepare:_cmd];
+    [self performSelector:@selector(_testSetupSuccessNotify) withObject:nil afterDelay:10.0];
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:100.0];
+}
+
+- (void)_testSetupSuccessNotify {
+    [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(setUp)];
+}
+/*
 - (void)test_EXPECTED {
   [self prepare];
   [self performSelectorInBackground:@selector(_delayedRaise) withObject:nil];
   [self waitForStatus:kGHUnitWaitStatusSuccess timeout:1.0];
-}
+}*/
 
 - (void)_delayedRaise {
   [self performSelectorOnMainThread:@selector(_raiseException) withObject:nil waitUntilDone:YES];

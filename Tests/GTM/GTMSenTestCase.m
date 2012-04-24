@@ -260,7 +260,7 @@ NSString *const SenTestLineNumberKey = @"SenTestLineNumberKey";
     // outer layers get the exceptions to report counts, etc.
     @try {
       // For internal setup
-      if ([self respondsToSelector:@selector(_setUp)]) [self _setUp];
+      if ([self respondsToSelector:@selector(_setUp)]) [self performSelector:@selector(_setUp)];
       [self setUp];
       @try {
         [self performSelector:currentSelector_];
